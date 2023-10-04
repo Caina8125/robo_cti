@@ -1,12 +1,15 @@
 import os
 import time
+import shutil
 from abc import ABC
 from datetime import datetime
 from selenium import webdriver
 import menssage.Pidgin as Pidgin
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 
 
@@ -67,9 +70,25 @@ class relatorio(PageElement):
             time.sleep(2)
             self.driver.find_element(*self.censo).click()
             time.sleep(5)
+
+            
+
             print("Ativando o acesso ao site renderizado...")
             self.driver.switch_to.frame('child_APOIO.HTML,ATEND.HTML,DIAGN.HTML,EXTENSION.HTML,GLOBAL.HTML,INTER.HTML')
             print("Acesso ao site renderizado concluído")
+            
+            try:
+                WebDriverWait(driver, 3).until(EC.alert_is_present(),
+                                            'Timed out waiting for PA creation ' +
+                                            'confirmation popup to appear.')
+
+                alert = driver.switch_to.alert
+                alert.accept()
+                print("alert accepted")
+            except TimeoutException:
+                print("no alert")
+
+            
             csv = WebDriverWait(self.driver, 50).until(EC.presence_of_element_located((By.XPATH,'//*[@id="frames10_ac"]')))
             driver.find_element(*self.opcao_csv).click()
             time.sleep(1)
@@ -82,7 +101,7 @@ class relatorio(PageElement):
 
         i = 0
         count = 0
-        
+
         for i in range(3):
             try:
                 print("Emitindo relatório")
@@ -99,8 +118,7 @@ class relatorio(PageElement):
 
             except:
                 Pidgin.main(f'Olá, Ocorreu um erro no Bot_CTI_Norte ao Buscar o relatório no MV, o sistema não responde. Data: {date}')
-
-            # self.producao()
+                break
 
             try:
                 relatorio(driver, url).movePath()
@@ -110,22 +128,19 @@ class relatorio(PageElement):
             count = count + 1
         driver.quit()
 
-
     def movePath(self):
         global lista_relatorio
 
         lista_relatorio = ['UTI A', 'UTI B', 'UTI C']
         atual = datetime.now()
         date = atual.strftime("%d-%m-%Y %H-%M-%S")
-        arqDest = r"\\10.0.0.239\automacao_faturamento\CTI\Producao\Norte\R_CENSO.csv"
-        renomear = r"\\10.0.0.239\automacao_faturamento\CTI\Producao\Norte" + f"\\{lista_relatorio[count]} "+ f"{date}" + ".csv"
+        arqDest = r"C:\Arquivos_CTI\Producao\Norte\R_CENSO.csv"
+        renomear = r"C:\Arquivos_CTI\Producao\Norte" + f"\\{lista_relatorio[count]} "+ f"{date}" + ".csv"
+        backup = r"C:\Arquivos_CTI\Producao\Backup\Norte"
         time.sleep(2)
         os.replace(arqDest,renomear)
+        shutil.copy(renomear,backup)
         print("Arquivo renomeado e guardado com sucesso")
-    
-    # def producao(self):
-    #     Api.upload_CtiNorte() 
-
 
 #------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -136,7 +151,7 @@ def iniciar_CtiNorte():
     url = 'http://soulmv.gruposanta.com.br/mvautenticador-cas/login?service=http%3A%2F%2Fsoulmv.gruposanta.com.br%3A80%2Fsoul-mv%2Fcas'
 
     chrome_options = Options()
-    chrome_options.add_experimental_option('prefs', { "download.default_directory": r"\\10.0.0.239\automacao_faturamento\CTI\Producao\Norte",
+    chrome_options.add_experimental_option('prefs', { "download.default_directory": r"C:\Arquivos_CTI\Producao\Norte",
                                                 "download.prompt_for_download": False,
                                                 "download.directory_upgrade": True,
                                                 "plugins.always_open_pdf_externally": True
@@ -149,7 +164,6 @@ def iniciar_CtiNorte():
     login_page.open()
     login_page.exe_login(
         usuario = "ully.vieira",
-        senha = "09282605"
-        )
-    
+        senha = "09282605")
+
     relatorio(driver, url).Emitir_relatorio()

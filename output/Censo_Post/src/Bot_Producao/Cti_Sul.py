@@ -5,9 +5,7 @@ from abc import ABC
 from datetime import datetime
 from selenium import webdriver
 import menssage.Pidgin as Pidgin
-import APIs.Producao.Api_Censo as Api
 from selenium.webdriver.common.by import By
-import APIs.Homologacao.Api_Censo_hmg as Api_hmg
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -102,10 +100,10 @@ class relatorio(PageElement):
                 time.sleep(5)
             except:
                 Pidgin.main(f'Olá, Ocorreu um erro no Bot_CTI_Sul ao Buscar o relatório no MV, o sistema não responde. Data: {date}')
-
-            # self.producao()
+                break
 
             try:
+                time.sleep(2)
                 relatorio(driver, url).movePath()
             except:
                 Pidgin.main(f'Olá, Ocorreu um erro no Bot_CTI_Sul ao renomear o arquivo na data:{date}')
@@ -119,15 +117,13 @@ class relatorio(PageElement):
         lista_relatorio = ['UTI B2', 'UTI B3', 'UTI C1','UTI C2','UTI C3']
         atual = datetime.now()
         date = atual.strftime("%d-%m-%Y às %H-%M-%S")
-        nameAtual = r"\\10.0.0.239\automacao_faturamento\CTI\Producao\Sul\R_CENSO.csv"
-        renomear = r"\\10.0.0.239\automacao_faturamento\CTI\Producao\Sul" + f"\\{lista_relatorio[count]} "+ f"{date}" + ".csv"
-        # shutil.move(arqLocal,arqDest)
+        nameAtual = r"C:\Arquivos_CTI\Producao\Sul\R_CENSO.csv"
+        renomear = r"C:\Arquivos_CTI\Producao\Sul" + f"\\{lista_relatorio[count]} "+ f"{date}" + ".csv"
+        backup = r"C:\Arquivos_CTI\Producao\Backup\Norte"
         time.sleep(2)
         os.replace(nameAtual,renomear)
+        shutil.copy(renomear,backup)
         print("Arquivo renomeado e guardado com sucesso")
-    
-    # def producao(self):
-    #     Api.upload_CtiSul() 
 
 #------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -138,7 +134,7 @@ def iniciar_CtiSul():
     url = 'http://soulmv.gruposanta.com.br/mvautenticador-cas/login?service=http%3A%2F%2Fsoulmv.gruposanta.com.br%3A80%2Fsoul-mv%2Fcas'
 
     chrome_options = Options()
-    chrome_options.add_experimental_option('prefs', { "download.default_directory": r"\\10.0.0.239\automacao_faturamento\CTI\Producao\Sul",
+    chrome_options.add_experimental_option('prefs', { "download.default_directory": r"C:\Arquivos_CTI\Producao\Sul",
                                                       "download.prompt_for_download": False,
                                                       "download.directory_upgrade": True,
                                                       "plugins.always_open_pdf_externally": True

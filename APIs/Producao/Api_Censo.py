@@ -30,7 +30,6 @@ def auth():
     print('Token =>',token)
     print('')
     print('')
-    print('')
 
 
 
@@ -147,11 +146,10 @@ def getInternacao_cti_norte():
     print(get)
 
     content = json.loads(get.content)
-    qtd_internados = content['total']
-    pacientes = content['censoPacientes']
-    print(qtd_internados)
-    print(pacientes)
-    return qtd_internados
+    print(content)
+    
+    valores = content['total'],content['censoPacientes']
+    return valores
 
 def getInternacao_cti_sul():
 

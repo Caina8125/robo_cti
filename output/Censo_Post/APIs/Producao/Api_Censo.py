@@ -28,6 +28,8 @@ def auth():
     token = content['AccessToken']
     time.sleep(1)
     print('Token =>',token)
+    print('')
+    print('')
 
 
 
@@ -124,3 +126,51 @@ def post_CtiSul(pasta,nomeArquivo):
     print("")
     print("Id_Arquivo =>", NumeroId)
     print("")
+
+
+def getInternacao_cti_norte():
+
+    urlGet = 'https://censo-api.amhp.com.br/api/Internacao/obter-por-evolucao/3/11'
+
+    headers = {
+        'Authorization': f'Bearer {token}'
+    }
+
+    data = {
+        'evolucao' : 3,
+        'idUnidadeAtendimento' : 11
+    }
+    
+    get = requests.get( urlGet, headers=headers , data=data , proxies=proxies)
+    time.sleep(2)
+    print(get)
+
+    content = json.loads(get.content)
+    print(content)
+    
+    valores = content['total'],content['censoPacientes']
+    return valores
+
+def getInternacao_cti_sul():
+
+    urlGet = 'https://censo-api.amhp.com.br/api/Internacao/obter-por-evolucao/3/8'
+
+    headers = {
+        'Authorization': f'Bearer {token}'
+    }
+
+    data = {
+        'evolucao' : 3,
+        'idUnidadeAtendimento' : 8
+    }
+    
+    get = requests.get( urlGet, headers=headers , data=data , proxies=proxies)
+    time.sleep(2)
+    print(get)
+
+    content = json.loads(get.content)
+    qtd_internados = content['total']
+    pacientes = content['censoPacientes']
+    print(qtd_internados)
+    print(pacientes)
+    return qtd_internados

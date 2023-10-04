@@ -1,11 +1,13 @@
-from datetime import datetime
-import APIs.Producao.Api_Censo as api_censo
 import pandas as pd
+from datetime import datetime
+import menssage.Pidgin as Pidgin
+import APIs.Producao.Api_Censo as api_censo
 from openpyxl import Workbook, load_workbook
 
 
 def preencherPlanilha_norte():
-    planilha  = r"\\10.0.0.239\automacao_faturamento\CTI\Planilhas\Norte\PLANILHA DE OCUPAÇÃO -2023.xlsx"
+    planilha  = r"\\10.0.0.239\automacao_faturamento\CTI\Backup_CTI\Norte\PLANILHA DE OCUPAÇÃO -2023.xlsx"
+    destino   = r"\\10.0.0.239\automacao_faturamento\CTI\Planilhas\Norte\PLANILHA DE OCUPAÇÃO -2023.xlsx"
     data      = datetime.now()
     dia       = data.day
     mes       = data.month
@@ -51,8 +53,6 @@ def preencherPlanilha_norte():
     df.to_excel(writer, 'OCUPAÇÃO UTI', startrow = linha , startcol= coluna, header=False, index=False)
     writer.save()
     print(df)
-
-
 
 
 
@@ -104,7 +104,11 @@ def preencherPlanilha_sul():
     df.to_excel(writer, 'OCUPAÇÃO UTI', startrow = linha , startcol= coluna, header=False, index=False)
     writer.save()
 
-
-preencherPlanilha_norte()
-
-preencherPlanilha_sul()
+try:
+    preencherPlanilha_norte()
+except Exception as e:
+    Pidgin.main(f'Não foi possível preencher a planilha de internados CTI-Norte. Erro {e.args}')
+try:
+    preencherPlanilha_sul()
+except Exception as e:
+    Pidgin.main(f'Não foi possível preencher a planilha de internados CTI-Sul. Erro {e.args}')
