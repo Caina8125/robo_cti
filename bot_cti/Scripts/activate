@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\lucas.timoteo\Desktop\Relatório-CTI\bot_cti"
+VIRTUAL_ENV="D:\CTI\bot_cti"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

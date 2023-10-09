@@ -14,7 +14,7 @@ def preencherPlanilha_norte():
     mes        = data.month
     linha      = 0
     coluna     = dia
-   
+
     # Encontrar o Mês
     match mes:
         case 1:
@@ -90,10 +90,6 @@ def preencherPlanilha_norte():
     # df_internado.to_excel(writer, 'OCUPAÇÃO UTI', startrow = 62 , startcol= 1, header=False, index=False)
     dado.to_excel(writer, 'ADMISSÃO ROTINA', startrow = 62 , startcol= 0, header=False, index=False)
     writer.save()
-            
-
-
-
 
 
 def preencherPlanilha_sul():
@@ -147,5 +143,3 @@ def preencherPlanilha_sul():
 
 
 preencherPlanilha_norte()
-
-# preencherPlanilha_sul()
