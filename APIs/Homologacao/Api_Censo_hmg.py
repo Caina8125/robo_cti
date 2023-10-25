@@ -68,9 +68,9 @@ def post_GED_hmg(pasta,nomeArquivo):
 def post_CtiNorte_hmg(pasta,nomeArquivo):
     global NumeroId
 
-    # urlPostDebug = 'https://localhost:7009/api/Upload/upload-csv-cti/11'
+    urlPostDebug = 'https://localhost:7009/api/Upload/upload-csv-cti/11'
 
-    urlPost = 'https://censo-api-hmg.amhp.com.br/api/Upload/upload-csv-cti/11'
+    # urlPost = 'https://censo-api-hmg.amhp.com.br/api/Upload/upload-csv-cti/11'
 
     headers = {
         'Authorization': f'Bearer {token}'
@@ -84,7 +84,7 @@ def post_CtiNorte_hmg(pasta,nomeArquivo):
         'file': (nomeArquivo, open(pasta, 'rb'))
     }
 
-    response = requests.post(urlPost, headers=headers, data=data, files=files, proxies=proxies)
+    response = requests.post(urlPostDebug, headers=headers, data=data, files=files, verify=False)
     files['file'][1].close()
     print("")
     print("CTI_NORTE =>",response)
@@ -92,6 +92,7 @@ def post_CtiNorte_hmg(pasta,nomeArquivo):
     print(f"Relatório de pacientes internados na CTI_Norte inseridos na API com sucesso")
     print("")
     content = json.loads(response.content)
+    # print(content)
     NumeroId = content['internacao']['idAuditoria']
     print("Id_Arquivo =>", NumeroId)
     print("")
@@ -126,6 +127,7 @@ def post_CtiSul_hmg(pasta,nomeArquivo):
     print(f"Relatório de pacientes internados na CTI_Sul inseridos na API com sucesso")
     print("")
     content = json.loads(response.content)
+    print(content)
     NumeroId = content['internacao']['idAuditoria']
     print("")
     print("Id_Arquivo =>", NumeroId)
