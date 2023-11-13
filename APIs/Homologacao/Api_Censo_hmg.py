@@ -3,9 +3,6 @@ import time
 import requests
 import Authentication.Authentic
 
-
-
-
 def auth_hmg():
     global token
     global proxies
@@ -22,7 +19,7 @@ def auth_hmg():
         "Senha" : Authentication.Authentic.senha_censo
     }
 
-    post = requests.post( urlAuth, usuario_login, proxies=proxies)
+    post = requests.post(urlAuth, usuario_login, proxies=proxies)
     time.sleep(1)
     content = json.loads(post.content)
     time.sleep(1)
@@ -92,7 +89,6 @@ def post_CtiNorte_hmg(pasta,nomeArquivo):
     print(f"Relatório de pacientes internados na CTI_Norte inseridos na API com sucesso")
     print("")
     content = json.loads(response.content)
-    # print(content)
     NumeroId = content['internacao']['idAuditoria']
     print("Id_Arquivo =>", NumeroId)
     print("")
