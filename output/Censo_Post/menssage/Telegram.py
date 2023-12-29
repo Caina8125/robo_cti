@@ -1,49 +1,28 @@
-import telegram
-import asyncio
-import socks
 import requests
-from telegram.ext import Updater
 
-async def Amhp(aviso):
 
-    # Defina o ID do chat onde as mensagens serão enviadas
-    id_amhp = '-357797147'
+def Dev(aviso):
+    proxies = {
+        "http": f"http://lucas.timoteo:Caina8125@10.0.0.230:3128/",
+        "https": f"http://lucas.timoteo:Caina8125@10.0.0.230:3128/"
+    }
 
-    my_id = '1148462305'
-
-    
-
-    # Crie um objeto Bot com o token do bot
+    my_id   = '1148462305'
     myToken = '6958350096:AAHxsXXkiOjPrLMe0NRllYUGmkdDSzRJjh8'
-    bot     = telegram.Bot(token=myToken)
-    await bot.send_message(chat_id=id_amhp, text=aviso)
+    teste = requests.post(f'https://api.telegram.org/bot{myToken}/sendMessage?chat_id={my_id}&text='+aviso, proxies=proxies)
+    print(teste)
 
-# async def Dev(aviso):
 
-async def send_message_with_proxy():
-    my_id          = '1148462305'
-    proxy_host     = '10.0.0.230'
-    proxy_port     = '3128'
-    proxy_user     = "lucas.timoteo"
-    proxy_pass     = "Caina8125"
-    myToken        = '6958350096:AAHxsXXkiOjPrLMe0NRllYUGmkdDSzRJjh8'
-    bot            = telegram.Bot(token=myToken)
+def Amhp(aviso):
+    proxies = {
+        "http": f"http://lucas.timoteo:Caina8125@10.0.0.230:3128/",
+        "https": f"http://lucas.timoteo:Caina8125@10.0.0.230:3128/"
+    }
 
-    proxy_settings = {
-    'address': proxy_host,
-    'port': proxy_port,
-    'username': proxy_user,
-    'password': proxy_pass,
-    'rdns': True
-}
-    proxy = socks.socksocket()
-    proxy.setproxy(**proxy_settings)
-    
-    bot._validate_token()
-    bot._replace()
-    bot._connect()
+    amhp_id   = '-357797147'
+    myToken = '6958350096:AAHxsXXkiOjPrLMe0NRllYUGmkdDSzRJjh8'
+    requests.post(f'https://api.telegram.org/bot{myToken}/sendMessage?chat_id={amhp_id}&text='+aviso, proxies=proxies)
 
-    # await Updater(token=myToken, use_context=True, request_context=request_context)
-    await bot.send_message(chat_id=my_id, text="teste")
 
-# asyncio.run(send_message_with_proxy()) 
+
+# Dev("Erro ao fazer o post na API do censo - CTI_NORTE")

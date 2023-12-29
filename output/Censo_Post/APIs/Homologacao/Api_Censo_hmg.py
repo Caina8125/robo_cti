@@ -29,8 +29,6 @@ def auth_hmg():
     print("")
 
 
-
-
 def post_GED_hmg(pasta,nomeArquivo):
 
     urlPost = 'https://amhpged.amhp.com.br/api/CensoArquivo/adicionar-arquivo'
@@ -43,14 +41,14 @@ def post_GED_hmg(pasta,nomeArquivo):
     data = {
         'Id': 1,
         'CensoId': NumeroId,
-        'TipoDocumentoId': 1
+        'TipoDocumentoId': 21
     }
 
     files = {
         'file': (nomeArquivo, open(pasta, 'rb'))
     }
 
-    response = requests.post(urlPost, headers=headers, data=data, files=files, verify=False)
+    response = requests.post(urlPost, headers=headers, data=data, files=files, proxies=proxies)
     time.sleep(2)
     files['file'][1].close()
     print("")
@@ -65,23 +63,24 @@ def post_GED_hmg(pasta,nomeArquivo):
 def post_CtiNorte_hmg(pasta,nomeArquivo):
     global NumeroId
 
-    urlPostDebug = 'https://localhost:7009/api/Upload/upload-csv-cti/11'
+    # urlPostDebug = f'https://localhost:7009/api/Upload/upload-csv-cti/11?nomeArquivo={nomeArquivo}'
 
-    # urlPost = 'https://censo-api-hmg.amhp.com.br/api/Upload/upload-csv-cti/11'
+    urlPost = f'https://censo-api-hmg.amhp.com.br/api/Upload/upload-csv-cti/11?nomeArquivo={nomeArquivo}'
 
     headers = {
         'Authorization': f'Bearer {token}'
     }
 
     data = {
-        'unidadeAtendimento': 11
+        'unidadeAtendimento': 11,
+        'nomeArquivo': nomeArquivo
     }
 
     files = {
         'file': (nomeArquivo, open(pasta, 'rb'))
     }
 
-    response = requests.post(urlPostDebug, headers=headers, data=data, files=files, verify=False)
+    response = requests.post(urlPost, headers=headers, data=data, files=files,proxies=proxies)
     files['file'][1].close()
     print("")
     print("CTI_NORTE =>",response)
@@ -100,14 +99,15 @@ def post_CtiNorte_hmg(pasta,nomeArquivo):
 
 def post_CtiSul_hmg(pasta,nomeArquivo):
 
-    urlPost = 'https://censo-api-hmg.amhp.com.br/api/Upload/upload-csv-cti/8'
+    urlPost = f'https://censo-api-hmg.amhp.com.br/api/Upload/upload-csv-cti/8?nomeArquivo={nomeArquivo}'
 
     headers = {
         'Authorization': f'Bearer {token}'
     }
 
     data = {
-        'unidadeAtendimento': 8
+        'unidadeAtendimento': 8,
+        'nomeArquivo':nomeArquivo
     }
 
     files = {

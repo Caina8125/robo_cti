@@ -9,7 +9,7 @@ def Dev(aviso):
 
     my_id   = '1148462305'
     myToken = '6958350096:AAHxsXXkiOjPrLMe0NRllYUGmkdDSzRJjh8'
-    teste = requests.post(f'https://api.telegram.org/bot{myToken}/sendMessage?chat_id={my_id}&parse_mode=MarkdownV2&text='+aviso, proxies=proxies)
+    teste = requests.post(f'https://api.telegram.org/bot{myToken}/sendMessage?chat_id={my_id}&text='+aviso, proxies=proxies)
     print(teste)
 
 
@@ -21,8 +21,8 @@ def Amhp(aviso):
 
     amhp_id   = '-357797147'
     myToken = '6958350096:AAHxsXXkiOjPrLMe0NRllYUGmkdDSzRJjh8'
-    requests.post(f'https://api.telegram.org/bot{myToken}/sendMessage?chat_id={amhp_id}&parse_mode=MarkdownV2&text='+aviso, proxies=proxies)
+    requests.post(f'https://api.telegram.org/bot{myToken}/sendMessage?chat_id={amhp_id}&text='+aviso, proxies=proxies)
 
 
 
-Dev("Erro ao fazer o post na API do censo - CTI_NORTE")
+# Dev("Erro ao fazer o post na API do censo - CTI_NORTE")
