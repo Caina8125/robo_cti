@@ -21,7 +21,7 @@ def post_arquivos_Norte():
     try:
         api_censo.auth()
     except Exception as e:
-        Pidgin.main(f"Olá, ocorreu um erro no robô ao buscar o Token no Auth. {e.__class__.__name__}: {e}")
+        Pidgin.producao(f"Olá, ocorreu um erro no robô ao buscar o Token no Auth. {e.__class__.__name__}: {e}")
         telegram.Amhp(f"Ocorreu um erro ao buscar o Token no Auth.  {e.__class__.__name__}: {e}")
     
     for arquivo in lista_ordenada:
@@ -30,7 +30,7 @@ def post_arquivos_Norte():
             api_censo.post_CtiNorte(nome_csv,arquivo[1])
             enviados_norte += 1
         except Exception as e:
-            Pidgin.main(f"Olá, ocorreu um erro no robô ao Subir o arquivo {arquivo[1]} para a S3 - CTI_NORTE. Erro: {e.__class__.__name__}: {e}")
+            Pidgin.producao(f"Olá, ocorreu um erro no robô ao Subir o arquivo {arquivo[1]} para a S3 - CTI_NORTE. Erro: {e.__class__.__name__}: {e}")
             erro_envio_norte += 1
             # telegram.Amhp(f"Erro ao fazer o post na API do censo - CTI_NORTE com o arquivo: {arquivo[1]} . O mesmo está separado para avaliação na pasta do servidor: C://Arquivos_CTI/Producao/Erros/Norte. {e.__class__.__name__}: {e}")
             time.sleep(1)
@@ -40,7 +40,7 @@ def post_arquivos_Norte():
         try:
             api_censo.post_GED(nome_csv,arquivo[1])
         except Exception as e:
-            Pidgin.main(f"Olá, ocorreu um erro no robô ao Subir um arquivo para a S3 - CTI_NORTE. Erro: {e.args}")
+            Pidgin.producao(f"Olá, ocorreu um erro no robô ao Subir um arquivo para a S3 - CTI_NORTE. Erro: {e.args}")
             telegram.Amhp(f"Ocorreu um erro ao Subir o arquivo {arquivo[1]} para a S3 - CTI_NORTE. Erro: {e.__class__.__name__}: {e}")
 
         os.remove(nome_csv)
@@ -65,7 +65,7 @@ def post_arquivos_Sul():
     try:
         api_censo.auth()
     except Exception as e:
-        Pidgin.main(f"Olá, ocorreu um erro no robô ao buscar o Token no Auth. {e.__class__.__name__}: {e}")
+        Pidgin.producao(f"Olá, ocorreu um erro no robô ao buscar o Token no Auth. {e.__class__.__name__}: {e}")
         telegram.Amhp(f"Ocorreu um erro ao buscar o Token no Auth.  {e.__class__.__name__}: {e}")
 
     for arquivo in lista_ordenada:
@@ -74,7 +74,7 @@ def post_arquivos_Sul():
             api_censo.post_CtiSul(nome_csv,arquivo[1])
             enviados_sul += 1
         except Exception as e:
-            Pidgin.main(f"Olá, erro no robô ao fazer o post na API do censo - CTI_SUL com o arquivo: {arquivo[1]} . O mesmo foi separado para avaliação na pasta do servidor: C://Arquivos_CTI/Producao/Erros/Sul. Erro {e.__class__.__name__}: {e}")
+            Pidgin.producao(f"Olá, erro no robô ao fazer o post na API do censo - CTI_SUL com o arquivo: {arquivo[1]} . O mesmo foi separado para avaliação na pasta do servidor: C://Arquivos_CTI/Producao/Erros/Sul. Erro {e.__class__.__name__}: {e}")
             erro_envio_sul += 1
             # telegram.Amhp(f"Erro ao fazer o post na API do censo - CTI_SUL com o arquivo: {arquivo[1]} . O mesmo está separado para avaliação na pasta do servidor: C://Arquivos_CTI/Producao/Erros/Sul. Erro {e.__class__.__name__}: {e}")
             shutil.move(nome_csv,erros_sul)
@@ -83,7 +83,7 @@ def post_arquivos_Sul():
         try:
             api_censo.post_GED(nome_csv,arquivo[1])
         except Exception as e:
-            Pidgin.main(f"Olá, ocorreu um erro no robô ao Subir um arquivo para a S3 - CTI_SUL. Erro {e.__class__.__name__}: {e}")
+            Pidgin.producao(f"Olá, ocorreu um erro no robô ao Subir um arquivo para a S3 - CTI_SUL. Erro {e.__class__.__name__}: {e}")
             # telegram.Amhp(f"Ocorreu um erro ao Subir o arquivo {arquivo[1]} para a S3 - CTI_SUL. Erro: {e.__class__.__name__}: {e}")
         
         time.sleep(1)

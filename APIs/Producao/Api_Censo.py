@@ -68,7 +68,7 @@ def post_GED(pasta,nomeArquivo):
 def post_CtiNorte(pasta,nomeArquivo):
     global NumeroId
 
-    urlPost = f'https://censo-api.amhp.com.br/api/Upload/upload-csv-cti/11?nomeArquivo={nomeArquivo}'
+    urlPost = f'https://censo-api.amhp.com.br/api/Upload/upload/11,'
 
     headers = {
         'Authorization': f'Bearer {token}'
@@ -76,7 +76,6 @@ def post_CtiNorte(pasta,nomeArquivo):
 
     data = {
         'unidadeAtendimento': 11,
-        'nomeArquivo': nomeArquivo
     }
 
     files = {
@@ -99,7 +98,7 @@ def post_CtiNorte(pasta,nomeArquivo):
 def post_CtiSul(pasta,nomeArquivo):
     global NumeroId
 
-    urlPost = f'https://censo-api.amhp.com.br/api/Upload/upload-csv-cti/8?nomeArquivo={nomeArquivo}'
+    urlPost = f'https://censo-api.amhp.com.br/api/Upload/upload/8'
 
     headers = {
         'Authorization': f'Bearer {token}'
@@ -107,7 +106,6 @@ def post_CtiSul(pasta,nomeArquivo):
 
     data = {
         'unidadeAtendimento': 8,
-        'nomeArquivo': nomeArquivo
     }
 
     files = {
