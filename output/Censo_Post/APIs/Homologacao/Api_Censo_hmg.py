@@ -63,9 +63,9 @@ def post_GED_hmg(pasta,nomeArquivo):
 def post_CtiNorte_hmg(pasta,nomeArquivo):
     global NumeroId
 
-    # urlPostDebug = f'https://localhost:7009/api/Upload/upload-csv-cti/11?nomeArquivo={nomeArquivo}'
+    # urlPostDebug = f'https://localhost:7009/api/Upload/upload/11'
 
-    urlPost = f'https://censo-api-hmg.amhp.com.br/api/Upload/upload-csv-cti/11?nomeArquivo={nomeArquivo}'
+    urlPost = f'https://censo-api-hmg.amhp.com.br/api/Upload/upload/11'
 
     headers = {
         'Authorization': f'Bearer {token}'
@@ -73,7 +73,6 @@ def post_CtiNorte_hmg(pasta,nomeArquivo):
 
     data = {
         'unidadeAtendimento': 11,
-        'nomeArquivo': nomeArquivo
     }
 
     files = {
@@ -99,7 +98,7 @@ def post_CtiNorte_hmg(pasta,nomeArquivo):
 
 def post_CtiSul_hmg(pasta,nomeArquivo):
 
-    urlPost = f'https://censo-api-hmg.amhp.com.br/api/Upload/upload-csv-cti/8?nomeArquivo={nomeArquivo}'
+    urlPost = f'https://censo-api-hmg.amhp.com.br/api/Upload/upload/8'
 
     headers = {
         'Authorization': f'Bearer {token}'
@@ -107,7 +106,6 @@ def post_CtiSul_hmg(pasta,nomeArquivo):
 
     data = {
         'unidadeAtendimento': 8,
-        'nomeArquivo':nomeArquivo
     }
 
     files = {
@@ -128,9 +126,6 @@ def post_CtiSul_hmg(pasta,nomeArquivo):
     print("")
     print("Id_Arquivo =>", NumeroId)
     print("")
-
-
-
 
 
 

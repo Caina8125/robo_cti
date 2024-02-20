@@ -9,11 +9,11 @@ import APIs.Homologacao.Api_Censo_hmg as api_censo
 
 def post_arquivos_Norte_hmg():
     global enviados_norte, erro_envio_norte
-    count            = 0
     pasta            = r"C:\Arquivos_CTI\Homologacao\Norte"
     erros_norte      = r"C:\Arquivos_CTI\Homologacao\Erros\Norte"
     nomes_arquivos   = os.listdir(pasta)
     lista_ordenada   = ordenarArquivos(nomes_arquivos,pasta)
+    count            = 0
     enviados_norte   = 0
     erro_envio_norte = 0
     
@@ -51,12 +51,12 @@ def post_arquivos_Norte_hmg():
 def post_arquivos_Sul_hmg():
     global enviados_sul, erro_envio_sul
     count          = 0
+    enviados_sul   = 0
+    erro_envio_sul = 0
     pasta          = r"C:\Arquivos_CTI\Homologacao\Sul"
     erros_sul      = r"C:\Arquivos_CTI\Homologacao\Erros\Sul"
     nomes_arquivos = os.listdir(pasta)
     lista_ordenada = ordenarArquivos(nomes_arquivos,pasta)
-    enviados_sul   = 0
-    erro_envio_sul = 0
 
     try:
         api_censo.auth_hmg()
